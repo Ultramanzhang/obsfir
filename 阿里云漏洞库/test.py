@@ -1,0 +1,2 @@
+a =[]
+print(type(a))
