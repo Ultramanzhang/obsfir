@@ -57,7 +57,7 @@ class Aliyun():
     def get_data(self):
         page_num=self.get_page_num()
         print("共{}页".format(page_num))
-        for i in range(1,int(page_num)+1):
+        for i in range(1, int(page_num)+1):
             print("[*] 正在爬取第{}页".format(i))
             self.pagrams["page"]=i
             text=self.get_HTML().text
