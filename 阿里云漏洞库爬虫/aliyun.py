@@ -1,6 +1,15 @@
 import csv
+import time
 import requests
 from lxml import etree
+import os
+import re
+import io
+import sys
+
+
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')         #改变标准输出的默认编码
 
 """
 @author: zhegu
@@ -32,37 +41,60 @@ class Aliyun():
         response = requests.get(url=self.url, params=self.pagrams, headers=self.headers)
         return response
 
+
+    #获取页面数量
+    def get_page_num(self):
+        text=self.get_HTML().text
+        tree = etree.HTML(text)
+        #获取页面底部的页码数据
+        pages = tree.xpath("/html/body/main/div[2]/div/div[3]/span/text()")
+        p = re.compile(r"\d+")
+        #通过正则表达式进行提取
+        num=p.findall(pages[0])[1]
+        return num
+
+    #获取所有页面的数据
+    def get_data(self):
+        page_num=self.get_page_num()
+        print("共{}页".format(page_num))
+        for i in range(int(page_num)+1):
+            print("[*] 正在爬取第{}页".format(i))
+            self.pagrams["page"]=i
+            text=self.get_HTML().text
+            self.parse(text)
+            time.sleep(2)
     # 解析函数，解析阿里云漏洞库的网页
-    def parse(self):
-        text = self.get_HTML().text
+    def parse(self,text):
+        # text = self.get_HTML().text
         # 引入xpath的解析对象
         tree = etree.HTML(text)
         # 提取编号
-        self.ids = tree.xpath('//tr/td[1]/a/text()')
+        ids = tree.xpath('//tr/td[1]/a/text()')
         # 提取标题
-        self.titles = tree.xpath('//tr/td[2]/text()')
+        titles = tree.xpath('//tr/td[2]/text()')
         # 提取类型
-        self.types = tree.xpath('//tr/td[3]/button/text()')
+        types = tree.xpath('//tr/td[3]/button/text()')
         # 提取时间
-        self.times = tree.xpath('//tr/td[4]/text()')
+        times = tree.xpath('//tr/td[4]/text()')
         # 提取状态
         buttun = tree.xpath('//tr/td[5]/button[2]')
+        status=[]
         for bu in buttun:
-            self.status.append(bu.get('title', ''))
+            status.append(bu.get('title', ''))
 
 
         # 数据清洗，去除爬下来的数据中的空格和换行
-        self.ids = [element.strip() for element in self.ids]
-        self.titles = [element.strip() for element in self.titles]
-        self.types = [element.strip() for element in self.types]
-        self.times = [element.strip() for element in self.times]
-        self.status = [element.strip() for element in self.status]
+        self.ids+=[element.strip() for element in ids]
+        self.titles += [element.strip() for element in titles]
+        self.types += [element.strip() for element in types]
+        self.times += [element.strip() for element in times]
+        self.status += [element.strip() for element in status]
 
     def input_consumer(self):
         self.pagrams = {
             "q": input("请输入待检测的组件名称：")
         }
-        self.parse()
+        self.get_data()
 
     # 保存到csv文件中
     def save(self, lists, filename):
