@@ -8,7 +8,7 @@ class GuangOA():
         self.Detection_Url = '/Webservice/IM/Config/ConfigService.asmx/GetIMDictionary'
         self.headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203'}
     def get_response(self, url, headers, payloads):
-        response = requests.get(urljoin(url, payloads), headers)
+        response = requests.get(urljoin(url, payloads), headers,verify=False)
         return response
 
 
