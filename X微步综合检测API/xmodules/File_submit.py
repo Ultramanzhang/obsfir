@@ -7,9 +7,8 @@
 import os
 import requests
 
-# 处理post请求
+
 from ..xutils import make_post_params
-# Analyze_constant用于处理本项目中网页的返回数据对应值
 from ..xutils import Analyze_constant
 
 

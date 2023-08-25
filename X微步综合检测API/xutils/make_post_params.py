@@ -1,5 +1,5 @@
 '''
-该脚本用于处理文件提交post请求中的数据
+该脚本用于处理文件提交时post请求中的数据
 '''
 
 from config_manager import ConfigManager
