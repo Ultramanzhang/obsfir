@@ -19,11 +19,14 @@ class IpAnalyze():
         rsponse = self.get_response(make_params.main(ip))
         json = rsponse.json()
         if json['response_code'] == 0:
-            print(Analyze_constant.analyze(0))
-
+            # 处理服务器返回code
+            print(Analyze_constant.response_code(0))
+            # 处理其他参数
         else:
-            print(Analyze_constant.analyze(json['response_code']))
+            # 从里服务器返回
+            print(Analyze_constant.Verbose_Msg(json['verbose_msg']))
             exit()
+
 
     # 主函数方便调用
     def main(self, ip):
