@@ -8,8 +8,8 @@ import os
 import requests
 
 
-from ..xutils import make_post_params
-from ..xutils import Analyze_constant
+from xutils import make_post_params
+from xutils import Analyze_constant
 
 
 class Filesubmit():

@@ -4,6 +4,8 @@
 '''
 用于处理本项目中网页的返回数据对应值
 '''
+
+
 def response_code(code):
     response_codes = {
         0: "成功",
@@ -39,3 +41,65 @@ def Verbose_Msg(str):
         "Invalid API Key": "无效的API key。请输入正确的APIKey。您的APIKey可通过登陆x.threatbook.com，点击右上角头像，进入'我的API'查询。",
     }
     return response_codes.get(str, "未知代码")
+
+
+def judgments(str):
+    judgments_code = {
+        "C2": "远控",
+        "Botnet": "僵尸网络",
+        "Hijacked": "劫持",
+        "Phishing": "钓鱼",
+        "Malware": "恶意软件",
+        "Exploit": "漏洞利用",
+        "Scanner": "扫描",
+        "Zombie": "傀儡机",
+        "Spam": "垃圾邮件",
+        "Suspicious": "可疑",
+        "Compromised": "失陷主机",
+        "Whitelist": "白名单",
+        "Brute Force": "暴力破解",
+        "Proxy": "代理",
+        "Info": "基础信息",
+        "MiningPool": "公共矿池",
+        "CoinMiner": "私有矿池",
+        "Suspicious Application": "潜在有害应用程序",
+        "Suspicious Website": "潜在有害站点",
+        "Reverse Proxy": "反向代理",
+        "Fake Website": "仿冒网站",
+        "Sinkhole C2": "安全机构接管 C2",
+        "SSH Brute Force": "SSH暴力破解",
+        "FTP Brute Force": "FTP暴力破解",
+        "SMTP Brute Force": "SMTP暴力破解",
+        "Http Brute Force": "HTTP AUTH暴力破解",
+        "Web Login Brute Force": "撞库",
+        "HTTP Proxy": "HTTP Proxy",
+        "HTTP Proxy In": "HTTP代理入口",
+        "HTTP Proxy Out": "HTTP代理出口",
+        "Socks Proxy": "Socks代理",
+        "Socks Proxy In": "Socks代理入口",
+        "Socks Proxy Out": "Socks代理出口",
+        "VPN": "VPN代理",
+        "VPN In": "VPN入口",
+        "VPN Out": "VPN出口",
+        "Tor": "Tor代理",
+        "Tor Proxy In": "Tor入口",
+        "Tor Proxy Out": "Tor出口",
+        "Bogon": "保留地址",
+        "FullBogon": "未启用IP",
+        "Gateway": "网关",
+        "IDC": "IDC服务器",
+        "Dynamic IP": "动态IP",
+        "Edu": "教育",
+        "DDNS": "动态域名",
+        "Mobile": "移动基站",
+        "Search Engine Crawler": "搜索引擎爬虫",
+        "CDN": "CDN服务器",
+        "Advertisement": "广告",
+        "DNS": "DNS服务器",
+        "BTtracker": "BT服务器",
+        "Backbone": "骨干网",
+        "ICP": "ICP备案",
+        "IoT Device": "物联网设备",
+        "Game Server": "游戏服务器"
+    }
+    return judgments_code.get(str, "未知代码")

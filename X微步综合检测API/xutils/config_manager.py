@@ -4,12 +4,14 @@
 '''
 配置文件统一管理工具，如果用户未填写则引导其填写
 '''
+import os
+
 import yaml
 
 
 class ConfigManager:
     def __init__(self):
-        self.config_file_path = '../config.yml'
+        self.config_file_path = os.path.join(os.path.dirname(__file__), '..', 'config.yml')
         self.config = self._load_config()
 
     def _load_config(self):
@@ -18,9 +20,9 @@ class ConfigManager:
         return config
 
     def get_apitoken(self):
-        if self.config().get('apikey') == '':
+        if self.config.get('apikey') == '':
             self.config['apikey'] = input("请输入您的apikey：")
             with open(self.config_file_path, 'w') as file:
                 yaml.dump(self.config['apikey'], file)
         else:
-            return self.config().get('apikey')
+            return self.config.get('apikey')
