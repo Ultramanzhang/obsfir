@@ -37,9 +37,14 @@ class Filesubmit():
 
     # 主函数方便调用
     def main(self, file_dir):
-        # file_dir = '.\\'
         # 获取当前目录下的所有文件
-        files = os.listdir(file_dir)
-        # 遍历文件列表，输出文件名
-        for file in files:
-            self.parse(file, file_dir)
+        # dirs为一个一维数组，包含路径下所有子目录名
+        for root, dirs, files in os.walk(file_dir):
+            # 遍历文件列表，传递目录下所有文件名和路径（包括子目录）
+            for file in files:
+                self.parse(file, root)
+
+        # files = os.listdir(file_dir)
+
+        # for file in files:
+        #
