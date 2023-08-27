@@ -6,8 +6,7 @@
 '''
 import os
 import requests
-
-
+import json
 from ..xutils import make_post_params
 from ..xutils import Analyze_constant
 
@@ -27,6 +26,9 @@ class Filesubmit():
     def parse(self, file_name,file_dir):
         rsponse = self.post_response(file_name, file_dir)
         json = rsponse.json()
+        # 储存响应文件文件,文件名： sha256
+        self.saversp(file_name, json['data']['sha256'])
+        # 根据响应数据返回提示
         if json['response_code'] == 0:
             print(Analyze_constant.response_code(0))
             print(json['data'])
@@ -34,17 +36,16 @@ class Filesubmit():
         else:
             print(Analyze_constant.Verbose_Msg(json['verbose_msg']))
             exit()
-
+    def saversp(self, key, value):
+        rsponse = {key: value}
+        # 保存文件
+        tf = open("../xutils/sha256.json", "w")
+        json.dump(rsponse, tf)
+        tf.close()
     # 主函数方便调用
     def main(self, file_dir):
-        # 获取当前目录下的所有文件
         # dirs为一个一维数组，包含路径下所有子目录名
         for root, dirs, files in os.walk(file_dir):
             # 遍历文件列表，传递目录下所有文件名和路径（包括子目录）
             for file in files:
                 self.parse(file, root)
-
-        # files = os.listdir(file_dir)
-
-        # for file in files:
-        #
