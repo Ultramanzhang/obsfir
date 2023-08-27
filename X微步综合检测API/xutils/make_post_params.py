@@ -2,7 +2,7 @@
 该脚本用于处理文件提交时post请求中的数据
 '''
 
-from config_manager import ConfigManager
+from .config_manager import ConfigManager
 
 # 这两段函数用于读取config.yml的配置
 config_manager = ConfigManager()

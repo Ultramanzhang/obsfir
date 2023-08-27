@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from xmodules.IP_analyze import IpAnalyze
+from xmodules.File_submit import Filesubmit
 
 '''
 本项目主类
@@ -10,15 +11,19 @@ from xmodules.IP_analyze import IpAnalyze
 
 class X_api():
     def __init__(self):
+        self.ipAnalyze = IpAnalyze()
+        self.fileSubmit = Filesubmit()
         self.urls = []
+        self.file_dir = 'input/'
+
 
     # 判断用户的使用方式
-    def choose(self, choos):
+    def choose(self, choose):
         self.urls = []
-        if choos == '1':
+        if choose == '1':
             self.urls.append(input("请输入待检测IP"))
             self.menu_choose()
-        elif choos == '2':
+        elif choose == '2':
             self.urls = self.redURL()
             self.menu_choose()
         else:
@@ -50,11 +55,13 @@ class X_api():
     def menu_choose(self):
         choose = input('''请选择您想要执行的功能：\r\n1、IP分析\r\n2、IP荣誉''')
         if choose == '1':
-            IpAnalyze.main(self.urls)
+            self.ipAnalyze.main(self.urls)
+        elif choose == '2':
+            self.fileSubmit.main(self.file_dir)
 
     # 类中的主函数，方便外部调用
     def main(self):
-        self.choose(input('请输入工作模式\r\n1、单量检测\r\n2、批量检测'))
+        self.choose(input('请输入工作模式\r\n1、单个检测\r\n2、批量检测\r\n'))
 
 
 if __name__ == '__main__':
