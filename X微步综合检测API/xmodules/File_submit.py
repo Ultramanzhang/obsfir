@@ -38,6 +38,7 @@ class Filesubmit():
             exit()
     def saversp(self, key, value):
         rsponse = {key: value}
+
         # 保存文件
         tf = open("../xutils/sha256.json", "w")
         json.dump(rsponse, tf)
